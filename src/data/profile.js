@@ -27,9 +27,9 @@ export const profile = {
     "IoT",
   ],
   links: {
-    email: "mailto:your-public-email@example.com",
-    github: "https://github.com/your-username",
-    linkedin: "https://www.linkedin.com/in/stephentclin",
-    resume: "./resume.pdf",
+    email: "mailto:allenlin81318@gmail.com",
+    github: "https://github.com/stephentclin",
+    linkedin: "http://www.linkedin.com/in/stephentclin",
+    resume: "https://drive.google.com/file/d/1z1xfvTYA5l9OebQPzqRBFbFHm2T3Ky4U/view?usp=drive_link",
   },
 };

@@ -3,7 +3,7 @@ export const education = [
     school: "University of Sydney",
     degree: "Master of Computer Science",
     period: "Feb 2026 - Feb 2028",
-    focus: "Data Science & AI, Cybersecurity",
+    focus: "Data Science & AI, Cybersecurity, S1 WMA 83",
   },
   {
     school: "National Chung Hsing University",
