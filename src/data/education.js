@@ -1,0 +1,26 @@
+export const education = [
+  {
+    school: "University of Sydney",
+    degree: "Master of Computer Science",
+    period: "Feb 2026 - Feb 2028",
+    focus: "Data Science & AI, Cybersecurity",
+  },
+  {
+    school: "National Chung Hsing University",
+    degree: "Master of Computer Science Engineering",
+    period: "Sep 2020 - Jul 2022",
+    focus: "Machine Learning, GPA 4.03 / 4.3",
+  },
+  {
+    school: "National Chiao Tung University",
+    degree: "Master of Mechanical Engineering",
+    period: "Sep 2014 - Sep 2016",
+    focus: "Digital Control, Signal and System, GPA 3.89 / 4.3",
+  },
+  {
+    school: "National Taiwan University of Science and Technology",
+    degree: "Bachelor of Mechanical Engineering",
+    period: "Sep 2010 - Jul 2014",
+    focus: "Mechanical Engineering",
+  },
+];
