@@ -42,4 +42,13 @@ export const projects = [
     demo: "",
     caseStudy: "#case-study-ai-stock-trend-prediction",
   },
+  {
+    name: "Dungeon Hero",
+    summary:
+      "A puzzle auto-battler where players command a dungeon by matching icons to summon monsters and stop the hero.",
+    stack: ["Game Design", "Puzzle Systems", "Auto-battler", "Balancing"],
+    repo: "",
+    demo: "https://tlin0965.itch.io/dungeon-hero",
+    caseStudy: "#case-study-dungeon-hero",
+  },
 ];

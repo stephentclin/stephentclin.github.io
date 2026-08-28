@@ -88,4 +88,44 @@ export const caseStudies = [
     result:
       "The experiment clarified how language-model sentiment features can support financial forecasting research while keeping the prediction workflow measurable.",
   },
+  {
+    id: "case-study-dungeon-hero",
+    type: "Game systems",
+    title: "Designing Dungeon Hero as a puzzle-driven auto-battler",
+    problem:
+      "Dungeon Hero needed to make the player feel like the commander of a dungeon while keeping combat fast, readable, and mostly automatic.",
+    decision:
+      "I split the game into two connected spaces: a right-side puzzle board where matching icons summons monsters, and a left-side battlefield where those monsters automatically fight the hero. This keeps player agency focused on board decisions, army pressure, and timing rather than direct unit control.",
+    result:
+      "The prototype creates a clear loop: match icons, summon monsters, build pressure, and defeat the hero before the dungeon falls.",
+    links: [
+      {
+        label: "More screenshots & details",
+        href: "https://tlin0965.itch.io/dungeon-hero",
+      },
+    ],
+    video: {
+      title: "Dungeon Hero gameplay demo",
+      embedUrl: "https://www.youtube.com/embed/hkZBQfjctnw",
+      caption: "Gameplay demo showing the puzzle board, automatic battlefield, and monster-summoning loop.",
+    },
+    futureWork: [
+      {
+        title: "Monster Progression",
+        description: "Add stronger monster tiers, upgrade paths, and clearer summon roles for different match types.",
+      },
+      {
+        title: "Board Strategy",
+        description: "Introduce combo bonuses, special tiles, and risk-reward choices that make each match more meaningful.",
+      },
+      {
+        title: "Hero Counterplay",
+        description: "Expand hero behavior with skills, attack patterns, and dungeon-breaking pressure to improve tension.",
+      },
+      {
+        title: "Balancing & Polish",
+        description: "Tune summon rate, battlefield pacing, visual feedback, and mobile readability for a smoother demo.",
+      },
+    ],
+  },
 ];

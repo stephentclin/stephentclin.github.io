@@ -3,6 +3,10 @@ export const experience = [
     role: "Full Stack Engineer",
     company: "Taiwan Semiconductor Manufacturing Cooperation (TSMC)",
     period: "Sep 2022 - Oct 2025",
+    logo: {
+      src: "/images/logo-tsmc.svg",
+      alt: "TSMC logo",
+    },
     highlights: [
       "Built manufacturing automation systems using React, TypeScript, C#, Python, and Oracle SQL.",
       "Engineered ASP.NET Core RESTful APIs for large-scale real-time production data.",
@@ -15,6 +19,10 @@ export const experience = [
     role: "Software Engineer",
     company: "Industrial Technology Research Institute (ITRI)",
     period: "Jun 2017 - Jul 2022",
+    logo: {
+      src: "/images/logo-itri.png",
+      alt: "Industrial Technology Research Institute logo",
+    },
     highlights: [
       "Implemented PID, FFT, and machine learning control algorithms in C for servo performance optimization.",
       "Developed TensorFlow models to predict motor system responses.",

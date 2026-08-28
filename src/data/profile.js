@@ -4,6 +4,7 @@ export const profile = {
   headline: "I build automation software for industrial AI systems.",
   summary:
     "Full-stack and software engineer with 8+ years of experience across semiconductor automation, industrial AI, edge computing, and hardware-software integration. I enjoy modernizing legacy systems into reliable tools that teams actually adopt.",
+  photo: "/images/stephen-lin-portrait.jpg",
   projectCount: "8+ yrs",
   focus: "AI + Automation",
   location: "Sydney",

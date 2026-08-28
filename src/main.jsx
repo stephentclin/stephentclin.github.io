@@ -6,11 +6,13 @@ import { projects } from "./data/projects.js";
 import { experience } from "./data/experience.js";
 import { education } from "./data/education.js";
 import { caseStudies } from "./data/caseStudies.js";
+import { serviceLeadership } from "./data/serviceLeadership.js";
 
 const navItems = [
   ["Projects", "#projects"],
   ["Experience", "#experience"],
   ["About", "#about"],
+  ["Service", "#service-leadership"],
   ["Case Studies", "#case-studies"],
   ["Skills", "#skills"],
   ["Contact", "#contact"],
@@ -65,22 +67,33 @@ function Hero() {
         </div>
       </div>
 
-      <aside className="hero-panel" aria-label="Portfolio highlights">
-        <div className="panel-header">
-          <span>Portfolio signal</span>
-          <strong>2026</strong>
+      <aside className="hero-profile-card" aria-label="Professional profile">
+        <div className="portrait-frame">
+          <img src={profile.photo} alt={`${profile.name} professional portrait`} />
         </div>
-        <div>
-          <span className="metric">{profile.projectCount}</span>
-          <span>software engineering experience</span>
-        </div>
-        <div>
-          <span className="metric">{profile.focus}</span>
-          <span>main focus</span>
-        </div>
-        <div>
-          <span className="metric">{profile.location}</span>
-          <span>location</span>
+        <div className="profile-card-body">
+          <div className="profile-card-header">
+            <div>
+              <span>Portfolio signal</span>
+              <h2>{profile.name}</h2>
+            </div>
+            <strong>2026</strong>
+          </div>
+          <p>{profile.role}</p>
+          <div className="credential-grid">
+            <div>
+              <span className="metric">{profile.projectCount}</span>
+              <span>software engineering experience</span>
+            </div>
+            <div>
+              <span className="metric">{profile.focus}</span>
+              <span>main focus</span>
+            </div>
+            <div>
+              <span className="metric">{profile.location}</span>
+              <span>location</span>
+            </div>
+          </div>
         </div>
       </aside>
     </section>
@@ -148,11 +161,20 @@ function Experience() {
       <div className="experience-list">
         {experience.map((job) => (
           <article className="experience-item" key={`${job.company}-${job.period}`}>
-            <div className="experience-title">
-              <h3>{job.role}</h3>
-              <span>{job.period}</span>
+            <div className="experience-heading">
+              {job.logo ? (
+                <div className="company-logo" aria-hidden="true">
+                  <img src={job.logo.src} alt="" />
+                </div>
+              ) : null}
+              <div className="experience-title">
+                <div>
+                  <h3>{job.role}</h3>
+                  <p className="experience-meta">{job.company}</p>
+                </div>
+                <span>{job.period}</span>
+              </div>
             </div>
-            <p className="experience-meta">{job.company}</p>
             <ul>
               {job.highlights.map((item) => (
                 <li key={item}>{item}</li>
@@ -182,11 +204,18 @@ function About() {
         <div className="education-list">
           {education.map((item) => (
             <article className="education-item" key={`${item.school}-${item.period}`}>
-              <div>
-                <h3>{item.school}</h3>
-                <p className="experience-meta">
-                  {item.degree} | {item.period}
-                </p>
+              <div className="education-main">
+                {item.logo ? (
+                  <div className="school-logo" aria-hidden="true">
+                    <img src={item.logo.src} alt="" />
+                  </div>
+                ) : null}
+                <div>
+                  <h3>{item.school}</h3>
+                  <p className="experience-meta">
+                    {item.degree} | {item.period}
+                  </p>
+                </div>
               </div>
               <p>{item.focus}</p>
             </article>
@@ -216,6 +245,15 @@ function CaseStudies() {
               <p>
                 <strong>Result:</strong> {study.result}
               </p>
+              {study.links ? (
+                <div className="case-study-links">
+                  {study.links.map((link) => (
+                    <ExternalLink href={link.href} key={link.href}>
+                      {link.label}
+                    </ExternalLink>
+                  ))}
+                </div>
+              ) : null}
               {study.showcase ? (
                 <section className="case-study-showcase" aria-labelledby={`${study.id}-showcase-title`}>
                   <div className="showcase-header">
@@ -252,9 +290,57 @@ function CaseStudies() {
                   {study.video.caption ? <p className="case-study-video-caption">{study.video.caption}</p> : null}
                 </>
               ) : null}
+              {study.futureWork ? (
+                <section className="future-work" aria-labelledby={`${study.id}-future-work-title`}>
+                  <div className="showcase-header">
+                    <p className="eyebrow">Future work</p>
+                    <h4 id={`${study.id}-future-work-title`}>Next iteration roadmap</h4>
+                  </div>
+                  <div className="future-work-grid">
+                    {study.futureWork.map((item) => (
+                      <article className="future-work-card" key={item.title}>
+                        <h5>{item.title}</h5>
+                        <p>{item.description}</p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
             </div>
           </article>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function ServiceLeadership() {
+  return (
+    <section id="service-leadership" className="section service-section">
+      <div className="service-layout">
+        <div>
+          <p className="eyebrow">Service & leadership</p>
+          <h2>Community roles and team leadership</h2>
+          <p>{serviceLeadership.summary}</p>
+        </div>
+        <div className="service-groups">
+          {serviceLeadership.groups.map((group) => (
+            <section className="service-group" key={group.title}>
+              <h3>{group.title}</h3>
+              <div className="service-item-list">
+                {group.items.map((item) => (
+                  <article className="service-item" key={`${group.title}-${item.title}`}>
+                    <div className="service-item-heading">
+                      <h4>{item.title}</h4>
+                      <span>{item.meta}</span>
+                    </div>
+                    <p>{item.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -303,6 +389,7 @@ function App() {
         <Projects />
         <Experience />
         <About Me/>
+        <ServiceLeadership />
         <CaseStudies />
         <Skills />
         <Contact />
