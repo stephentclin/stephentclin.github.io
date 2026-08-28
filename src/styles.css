@@ -998,12 +998,58 @@ h5 {
 }
 
 .contact {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.72fr);
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  gap: 48px;
   border-top: 1px solid var(--line);
   background: #ffffff;
+}
+
+.contact-content {
+  display: grid;
+  justify-items: end;
+  gap: 18px;
+}
+
+.contact-links {
+  justify-content: flex-end;
+}
+
+.qr-card {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  width: min(100%, 440px);
+  margin: 0;
+  padding: 16px;
+  border: 1px solid rgba(13, 116, 111, 0.16);
+  border-radius: 8px;
+  background: rgba(247, 248, 245, 0.92);
+  box-shadow: 0 12px 28px rgba(28, 43, 40, 0.07);
+}
+
+.qr-card img {
+  display: block;
+  width: 116px;
+  height: 116px;
+  object-fit: contain;
+}
+
+.qr-card figcaption {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.qr-card figcaption strong {
+  color: var(--steel);
+  font-size: 1rem;
+  font-weight: 850;
 }
 
 footer {
@@ -1026,6 +1072,7 @@ footer {
   .service-item-list,
   .interests-section,
   .interest-list,
+  .contact,
   .showcase-grid,
   .future-work-grid {
     grid-template-columns: 1fr;
@@ -1052,7 +1099,6 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .contact,
   footer {
     align-items: flex-start;
     flex-direction: column;
@@ -1133,6 +1179,25 @@ footer {
     width: 58px;
     height: 58px;
     padding: 8px;
+  }
+
+  .contact-content {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .contact-links {
+    justify-content: flex-start;
+  }
+
+  .qr-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .qr-card img {
+    width: 96px;
+    height: 96px;
   }
 
   .section {

@@ -431,11 +431,20 @@ function Contact() {
         <p className="eyebrow">Contact</p>
         <h2>Let&apos;s build something useful.</h2>
       </div>
-      <div className="contact-links">
-        <ExternalLink href={profile.links.email}>Email</ExternalLink>
-        <ExternalLink href={profile.links.github}>GitHub</ExternalLink>
-        <ExternalLink href={profile.links.linkedin}>LinkedIn</ExternalLink>
-        <ExternalLink href={profile.links.resume}>Resume</ExternalLink>
+      <div className="contact-content">
+        <div className="contact-links">
+          <ExternalLink href={profile.links.email}>Email</ExternalLink>
+          <ExternalLink href={profile.links.github}>GitHub</ExternalLink>
+          <ExternalLink href={profile.links.linkedin}>LinkedIn</ExternalLink>
+          <ExternalLink href={profile.links.resume}>Resume</ExternalLink>
+        </div>
+        <figure className="qr-card">
+          <img src={profile.websiteQrCode.src} alt={profile.websiteQrCode.alt} />
+          <figcaption>
+            <strong>Portfolio QR</strong>
+            <span>Scan to open this website on mobile.</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

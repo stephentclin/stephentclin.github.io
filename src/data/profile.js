@@ -55,4 +55,8 @@ export const profile = {
     linkedin: "http://www.linkedin.com/in/stephentclin",
     resume: "https://drive.google.com/file/d/1z1xfvTYA5l9OebQPzqRBFbFHm2T3Ky4U/view?usp=drive_link",
   },
+  websiteQrCode: {
+    src: "/images/website-qr-code.jpg",
+    alt: "QR code for Stephen Lin portfolio website",
+  },
 };
