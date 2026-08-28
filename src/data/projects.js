@@ -6,7 +6,7 @@ export const projects = [
     stack: ["React", "TypeScript", "C# / .NET", "Python", "Oracle SQL"],
     repo: "https://github.com/your-username/manufacturing-automation-platform",
     demo: "",
-    caseStudy: "#case-studies",
+    caseStudy: "#case-study-manufacturing-automation",
   },
   {
     name: "AI Edge Computing Framework",
@@ -15,7 +15,7 @@ export const projects = [
     stack: ["Python", "Deep Learning", "Edge Computing", "Signal Processing"],
     repo: "https://github.com/your-username/ai-edge-computing-framework",
     demo: "",
-    caseStudy: "#case-studies",
+    caseStudy: "#case-study-ai-edge-computing",
   },
   {
     name: "Embedded Computer Vision Tracker",
@@ -23,7 +23,7 @@ export const projects = [
     stack: ["YOLOv4", "DeepSort", "OpenCV", "Raspberry Pi"],
     repo: "https://github.com/your-username/embedded-computer-vision-tracker",
     demo: "",
-    caseStudy: "#case-studies",
+    caseStudy: "#case-study-embedded-vision",
   },
   {
     name: "IoT Wireless Control System",
@@ -32,7 +32,7 @@ export const projects = [
     stack: ["C", "Java", "Microprocessors", "DSP", "IoT"],
     repo: "https://github.com/your-username/iot-wireless-control-system",
     demo: "",
-    caseStudy: "#case-studies",
+    caseStudy: "#case-study-iot-wireless-control-system",
   },
   {
     name: "AI Stock Trend Prediction",
@@ -40,6 +40,6 @@ export const projects = [
     stack: ["Python", "BERT", "NLP", "Machine Learning"],
     repo: "https://github.com/your-username/ai-stock-trend-prediction",
     demo: "",
-    caseStudy: "#case-studies",
+    caseStudy: "#case-study-ai-stock-trend-prediction",
   },
 ];

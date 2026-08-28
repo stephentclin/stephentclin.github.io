@@ -1,7 +1,7 @@
 export const experience = [
   {
     role: "Full Stack Engineer",
-    company: "Taiwan Semiconductor Manufacturing Co. (TSMC)",
+    company: "Taiwan Semiconductor Manufacturing Cooperation (TSMC)",
     period: "Sep 2022 - Oct 2025",
     highlights: [
       "Built manufacturing automation systems using React, TypeScript, C#, Python, and Oracle SQL.",

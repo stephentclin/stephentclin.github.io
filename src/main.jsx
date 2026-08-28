@@ -203,7 +203,7 @@ function CaseStudies() {
       <SectionHeading eyebrow="Engineering depth" title="Case studies" />
       <div className="case-study-list">
         {caseStudies.map((study) => (
-          <article className="case-study" key={study.title}>
+          <article id={study.id} className="case-study" key={study.title}>
             <div>
               <p className="eyebrow">{study.type}</p>
               <h3>{study.title}</h3>
@@ -216,6 +216,42 @@ function CaseStudies() {
               <p>
                 <strong>Result:</strong> {study.result}
               </p>
+              {study.showcase ? (
+                <section className="case-study-showcase" aria-labelledby={`${study.id}-showcase-title`}>
+                  <div className="showcase-header">
+                    <p className="eyebrow">Result showcase</p>
+                    <h4 id={`${study.id}-showcase-title`}>{study.showcase.title}</h4>
+                    <p>{study.showcase.summary}</p>
+                  </div>
+                  <div className="showcase-grid">
+                    {study.showcase.figures.map((figure) => (
+                      <figure className="case-study-image" key={figure.src}>
+                        <img src={figure.src} alt={figure.alt} />
+                        <figcaption>{figure.caption}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+              {study.image ? (
+                <figure className="case-study-image">
+                  <img src={study.image.src} alt={study.image.alt} />
+                  <figcaption>{study.image.caption}</figcaption>
+                </figure>
+              ) : null}
+              {study.video ? (
+                <>
+                  <div className="case-study-video">
+                    <iframe
+                      src={study.video.embedUrl}
+                      title={study.video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+                  {study.video.caption ? <p className="case-study-video-caption">{study.video.caption}</p> : null}
+                </>
+              ) : null}
             </div>
           </article>
         ))}
@@ -266,7 +302,7 @@ function App() {
         <Hero />
         <Projects />
         <Experience />
-        <About />
+        <About Me/>
         <CaseStudies />
         <Skills />
         <Contact />
