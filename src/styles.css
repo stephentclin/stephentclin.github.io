@@ -177,6 +177,14 @@ nav a:hover,
   text-transform: uppercase;
 }
 
+.text-highlight {
+  padding: 0.08em 0.26em;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 42%, rgba(196, 106, 53, 0.24) 42%);
+  color: var(--accent-strong);
+  font-weight: 850;
+}
+
 h1,
 h2,
 h3,
@@ -700,6 +708,19 @@ h5 {
   padding-left: 18px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.achievement-callout {
+  margin: 18px 0 0 18px;
+  padding: 14px 18px;
+  border-left: 5px solid var(--accent);
+  background: rgba(237, 243, 239, 0.74);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.achievement-callout strong {
+  color: var(--ink);
 }
 
 .publications-section {

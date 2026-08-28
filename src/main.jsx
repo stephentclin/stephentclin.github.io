@@ -21,6 +21,71 @@ const navItems = [
   ["Contact", "#contact"],
 ];
 
+const highlightPhrases = [
+  "8+ years",
+  "semiconductor automation",
+  "industrial AI",
+  "edge computing",
+  "hardware-software integration",
+  "React",
+  "TypeScript",
+  "C#",
+  "Python",
+  "Oracle SQL",
+  "ASP.NET Core",
+  "real-time production data",
+  "ELK Stack",
+  "more than 10%",
+  "18 global factories",
+  "Docker",
+  "Kubernetes",
+  "Azure DevOps",
+  "PID",
+  "FFT",
+  "machine learning",
+  "TensorFlow",
+  "patented and published",
+  "90% adoption",
+  "0% to 90%",
+  "within two years",
+  "5% to 50%",
+  "20 micrometers",
+  "Data Science & AI",
+  "Cybersecurity",
+  "WMA 83",
+  "GPA 4.03 / 4.3",
+  "GPA 3.89 / 4.3",
+  "TSMC Foundation",
+  "remote elementary schools",
+  "hands-on learning",
+  "Airballers",
+  "Sydney Social Basketball",
+  "USYD club activities",
+];
+
+const highlightMatcher = new RegExp(
+  `(${highlightPhrases
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|")})`,
+  "g",
+);
+
+function HighlightText({ text }) {
+  if (!text) return null;
+
+  return text.split(highlightMatcher).map((part, index) =>
+    highlightPhrases.includes(part) ? (
+      <mark className="text-highlight" key={`${part}-${index}`}>
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
+}
+
 function ExternalLink({ href, children }) {
   if (!href) return null;
 
@@ -68,7 +133,9 @@ function Hero() {
       <div className="hero-copy">
         <p className="eyebrow">{profile.role}</p>
         <h1>{profile.headline}</h1>
-        <p className="lead">{profile.summary}</p>
+        <p className="lead">
+          <HighlightText text={profile.summary} />
+        </p>
         <div className="signal-row" aria-label="Professional highlights">
           {profile.highlights.map((item) => (
             <span key={item}>{item}</span>
@@ -134,7 +201,9 @@ function ProjectCard({ project }) {
       </div>
       <div>
         <h3>{project.name}</h3>
-        <p>{project.summary}</p>
+        <p>
+          <HighlightText text={project.summary} />
+        </p>
         <div className="tag-row">
           {project.stack.map((item) => (
             <span className="tag" key={item}>
@@ -172,7 +241,7 @@ function Experience() {
         <p className="eyebrow">Experience</p>
         <h2>Industrial software, automation, and AI systems</h2>
         <p>
-          Experience shaped by production environments: real-time data, factory workflows, hardware integration, and systems that need to be adopted by users at scale.
+          <HighlightText text="Experience shaped by production environments: real-time data, factory workflows, hardware integration, and systems that need to be adopted by users at scale." />
         </p>
       </div>
       <div className="experience-list">
@@ -194,9 +263,16 @@ function Experience() {
             </div>
             <ul>
               {job.highlights.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  <HighlightText text={item} />
+                </li>
               ))}
             </ul>
+            {job.achievement ? (
+              <div className="achievement-callout">
+                <strong>Achievement:</strong> <HighlightText text={job.achievement} />
+              </div>
+            ) : null}
           </article>
         ))}
       </div>
@@ -212,7 +288,7 @@ function Publications() {
           <p className="eyebrow">Publications & patent</p>
           <h2>Applied machine-tool research and intellectual property</h2>
           <p>
-            Published and patented work from industrial machine-tool software research, connecting CNC control, tool management, and intelligent value-added applications.
+            <HighlightText text="Published and patented work from industrial machine-tool software research, connecting CNC control, tool management, and intelligent value-added applications." />
           </p>
         </div>
         <div className="publication-list">
@@ -240,7 +316,7 @@ function About() {
         <article className="about-card about-intro">
           <h3>Current focus</h3>
           <p>
-            I am continuing my Computer Science studies at the University of Sydney, focusing on Data Science & AI and Cybersecurity. My academic path connects software engineering with industrial systems, machine learning, signal processing, and practical automation.
+            <HighlightText text="I am continuing my Computer Science studies at the University of Sydney, focusing on Data Science & AI and Cybersecurity. My academic path connects software engineering with industrial systems, machine learning, signal processing, and practical automation." />
           </p>
         </article>
         <div className="education-list">
@@ -259,7 +335,9 @@ function About() {
                   </p>
                 </div>
               </div>
-              <p>{item.focus}</p>
+              <p>
+                <HighlightText text={item.focus} />
+              </p>
             </article>
           ))}
         </div>
@@ -280,12 +358,14 @@ function CaseStudies() {
               <h3>{study.title}</h3>
             </div>
             <div>
-              <p>{study.problem}</p>
               <p>
-                <strong>Technical decision:</strong> {study.decision}
+                <HighlightText text={study.problem} />
               </p>
               <p>
-                <strong>Result:</strong> {study.result}
+                <strong>Technical decision:</strong> <HighlightText text={study.decision} />
+              </p>
+              <p>
+                <strong>Result:</strong> <HighlightText text={study.result} />
               </p>
               {study.links ? (
                 <div className="case-study-links">
@@ -301,13 +381,17 @@ function CaseStudies() {
                   <div className="showcase-header">
                     <p className="eyebrow">Result showcase</p>
                     <h4 id={`${study.id}-showcase-title`}>{study.showcase.title}</h4>
-                    <p>{study.showcase.summary}</p>
+                    <p>
+                      <HighlightText text={study.showcase.summary} />
+                    </p>
                   </div>
                   <div className="showcase-grid">
                     {study.showcase.figures.map((figure) => (
                       <figure className="case-study-image" key={figure.src}>
                         <img src={figure.src} alt={figure.alt} />
-                        <figcaption>{figure.caption}</figcaption>
+                        <figcaption>
+                          <HighlightText text={figure.caption} />
+                        </figcaption>
                       </figure>
                     ))}
                   </div>
@@ -329,7 +413,11 @@ function CaseStudies() {
                       allowFullScreen
                     />
                   </div>
-                  {study.video.caption ? <p className="case-study-video-caption">{study.video.caption}</p> : null}
+                  {study.video.caption ? (
+                    <p className="case-study-video-caption">
+                      <HighlightText text={study.video.caption} />
+                    </p>
+                  ) : null}
                 </>
               ) : null}
               {study.futureWork ? (
@@ -342,7 +430,9 @@ function CaseStudies() {
                     {study.futureWork.map((item) => (
                       <article className="future-work-card" key={item.title}>
                         <h5>{item.title}</h5>
-                        <p>{item.description}</p>
+                        <p>
+                          <HighlightText text={item.description} />
+                        </p>
                       </article>
                     ))}
                   </div>
@@ -363,7 +453,9 @@ function ServiceLeadership() {
         <div>
           <p className="eyebrow">Service & leadership</p>
           <h2>Community roles and team leadership</h2>
-          <p>{serviceLeadership.summary}</p>
+          <p>
+            <HighlightText text={serviceLeadership.summary} />
+          </p>
         </div>
         <div className="service-groups">
           {serviceLeadership.groups.map((group) => (
@@ -376,7 +468,9 @@ function ServiceLeadership() {
                       <h4>{item.title}</h4>
                       <span>{item.meta}</span>
                     </div>
-                    <p>{item.description}</p>
+                    <p>
+                      <HighlightText text={item.description} />
+                    </p>
                   </article>
                 ))}
               </div>
@@ -416,7 +510,11 @@ function Interests() {
         {profile.interests.map((interest) => (
           <article className="interest-item" key={interest.name}>
             <h3>{interest.name}</h3>
-            {interest.detail ? <p>{interest.detail}</p> : null}
+            {interest.detail ? (
+              <p>
+                <HighlightText text={interest.detail} />
+              </p>
+            ) : null}
           </article>
         ))}
       </div>

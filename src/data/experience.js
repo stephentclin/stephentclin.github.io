@@ -1,7 +1,7 @@
 export const experience = [
   {
     role: "Full Stack Engineer",
-    company: "Taiwan Semiconductor Manufacturing Cooperation (TSMC)",
+    company: "Taiwan Semiconductor Manufacturing Co. (TSMC)",
     period: "Sep 2022 - Oct 2025",
     logo: {
       src: "/images/logo-tsmc.svg",
@@ -11,9 +11,10 @@ export const experience = [
       "Built manufacturing automation systems using React, TypeScript, C#, Python, and Oracle SQL.",
       "Engineered ASP.NET Core RESTful APIs for large-scale real-time production data.",
       "Used ELK Stack for log analysis, reducing troubleshooting time by more than 10%.",
-      "Modernized legacy systems into an integrated platform adopted across 18 global factories.",
       "Established CI/CD pipelines with Docker, Kubernetes, and Azure DevOps.",
     ],
+    achievement:
+      "Refactored several legacy systems into an integrated system for 18 global factories, boosting adoption from 0% to 90% within two years and increasing the order auto-fill rate from 5% to 50%.",
   },
   {
     role: "Software Engineer",
