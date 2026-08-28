@@ -213,7 +213,6 @@ function ProjectCard({ project }) {
         </div>
       </div>
       <div className="card-links">
-        <ExternalLink href={project.repo}>Code</ExternalLink>
         <ExternalLink href={project.demo}>Demo</ExternalLink>
         <ExternalLink href={project.caseStudy}>Case study</ExternalLink>
       </div>
