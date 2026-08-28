@@ -8,6 +8,7 @@ export const education = [
       src: "/images/logo-university-of-sydney.svg",
       alt: "University of Sydney logo",
     },
+    transcript: "https://drive.google.com/file/d/1Xu2-Fm-5cMOUC7VAoTQZYc7Gki4dCRnM/view?usp=sharing",
   },
   {
     school: "National Chung Hsing University",
@@ -18,6 +19,7 @@ export const education = [
       src: "/images/logo-national-chung-hsing-university.png",
       alt: "National Chung Hsing University emblem",
     },
+    transcript: "https://drive.google.com/file/d/1D0jE9dCRzzNUyEHlWImasJNV00uzWxVP/view?usp=sharing",
   },
   {
     school: "National Chiao Tung University",
@@ -28,6 +30,7 @@ export const education = [
       src: "/images/logo-national-chiao-tung-university.jpg",
       alt: "National Chiao Tung University emblem",
     },
+    transcript: "https://drive.google.com/file/d/1hl2hAZIX4CbDkCSOguC52sGZLsW0xN0_/view?usp=sharing",
   },
   {
     school: "National Taiwan University of Science and Technology",

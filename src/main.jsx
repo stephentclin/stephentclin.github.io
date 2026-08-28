@@ -335,9 +335,12 @@ function About() {
                   </p>
                 </div>
               </div>
-              <p>
-                <HighlightText text={item.focus} />
-              </p>
+              <div className="education-detail">
+                <p>
+                  <HighlightText text={item.focus} />
+                </p>
+                {item.transcript ? <ExternalLink href={item.transcript}>Transcript</ExternalLink> : null}
+              </div>
             </article>
           ))}
         </div>
