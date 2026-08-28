@@ -1,7 +1,7 @@
 export const profile = {
   name: "Stephen Lin",
   role: "Full Stack & Software Engineer",
-  headline: "I build automation software for industrial AI systems.",
+  headline: "I turn industrial workflows into reliable AI-powered software.",
   summary:
     "Full-stack and software engineer with 8+ years of experience across semiconductor automation, industrial AI, edge computing, and hardware-software integration. I enjoy modernizing legacy systems into reliable tools that teams actually adopt.",
   photo: "/images/stephen-lin-portrait.jpg",
@@ -9,6 +9,28 @@ export const profile = {
   focus: "AI + Automation",
   location: "Sydney",
   highlights: ["Semiconductor automation", "Industrial AI", "Hardware-software systems"],
+  interests: [
+    {
+      name: "Tennis",
+    },
+    {
+      name: "Basketball",
+      detail: "Airballers, Sydney Social Basketball",
+    },
+    {
+      name: "Badminton",
+    },
+    {
+      name: "Pickleball",
+      detail: "USYD club activities",
+    },
+    {
+      name: "Traveling",
+    },
+    {
+      name: "Photography",
+    },
+  ],
   skills: [
     "TypeScript",
     "React",

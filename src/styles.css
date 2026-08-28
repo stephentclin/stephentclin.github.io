@@ -52,6 +52,13 @@ a {
   backdrop-filter: blur(14px);
 }
 
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -66,6 +73,54 @@ a {
   background: var(--accent);
   box-shadow: 0 0 0 6px rgba(13, 116, 111, 0.12);
   content: "";
+}
+
+.nav-toggle {
+  display: none;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(13, 116, 111, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--accent-strong);
+  cursor: pointer;
+}
+
+.nav-toggle span,
+.nav-toggle::before,
+.nav-toggle::after {
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.nav-toggle::before {
+  transform: translateY(-6px);
+}
+
+.nav-toggle::after {
+  transform: translateY(6px);
+}
+
+.nav-toggle[aria-expanded="true"] span {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"]::before {
+  transform: rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"]::after {
+  transform: rotate(-45deg);
 }
 
 nav {
@@ -647,6 +702,56 @@ h5 {
   line-height: 1.6;
 }
 
+.publications-section {
+  background:
+    linear-gradient(180deg, rgba(247, 248, 245, 0.9), rgba(255, 255, 255, 0.9)),
+    var(--paper);
+}
+
+.publications-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: 48px;
+}
+
+.publications-layout > div:first-child p:last-child {
+  max-width: 620px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.publication-list {
+  display: grid;
+  gap: 12px;
+}
+
+.publication-item {
+  padding: 22px;
+  border: 1px solid rgba(17, 19, 21, 0.08);
+  border-left: 5px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 34px rgba(28, 43, 40, 0.06);
+}
+
+.publication-item span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.publication-item h3 {
+  margin-top: 8px;
+  color: var(--ink);
+}
+
+.publication-item p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-weight: 800;
+}
+
 .service-section {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(237, 243, 239, 0.82)),
@@ -855,6 +960,43 @@ h5 {
   box-shadow: 0 10px 22px rgba(28, 43, 40, 0.05);
 }
 
+.interests-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: 48px;
+  background:
+    linear-gradient(180deg, rgba(247, 248, 245, 0.88), rgba(255, 255, 255, 0.94)),
+    var(--paper);
+}
+
+.interest-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.interest-item {
+  min-height: 104px;
+  padding: 16px;
+  border: 1px solid rgba(13, 116, 111, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 10px 22px rgba(28, 43, 40, 0.05);
+}
+
+.interest-item h3 {
+  color: var(--steel);
+  font-size: 1rem;
+}
+
+.interest-item p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 .contact {
   display: flex;
   align-items: center;
@@ -879,8 +1021,11 @@ footer {
   .case-study,
   .about-grid,
   .education-item,
+  .publications-layout,
   .service-layout,
   .service-item-list,
+  .interests-section,
+  .interest-list,
   .showcase-grid,
   .future-work-grid {
     grid-template-columns: 1fr;
@@ -907,7 +1052,6 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .topbar,
   .contact,
   footer {
     align-items: flex-start;
@@ -915,17 +1059,45 @@ footer {
   }
 
   .topbar {
-    gap: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
     padding-top: 18px;
     padding-bottom: 16px;
+  }
+
+  .brand-row {
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
   }
 
   nav {
     width: 100%;
     gap: 8px;
+    max-height: 0;
+    opacity: 0;
     overflow-x: auto;
-    padding-bottom: 2px;
+    overflow-y: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
     white-space: nowrap;
+    pointer-events: none;
+    transition:
+      max-height 180ms ease,
+      opacity 140ms ease,
+      padding-top 180ms ease;
+  }
+
+  nav.nav-open {
+    max-height: 320px;
+    opacity: 1;
+    padding-top: 16px;
+    padding-bottom: 2px;
+    pointer-events: auto;
   }
 
   nav a {

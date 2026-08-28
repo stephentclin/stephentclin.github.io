@@ -15,6 +15,17 @@ export const serviceLeadership = {
           meta: "Volunteer",
           description: "Contributed to postgraduate student community support through volunteer participation at the University of Sydney.",
         },
+        {
+          title: "TSMC Foundation Outreach",
+          meta: "Remote Elementary School Volunteer",
+          description:
+            "Joined TSMC Foundation activities during my time at TSMC, visiting remote elementary schools to introduce students to new technology experiences and support hands-on learning.",
+        },
+        {
+          title: "ITRI Employee Welfare Committee",
+          meta: "Committee Member",
+          description: "Helped organize employee activities and support workplace engagement initiatives during my time at ITRI.",
+        },
       ],
     },
     {

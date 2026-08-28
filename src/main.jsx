@@ -7,14 +7,17 @@ import { experience } from "./data/experience.js";
 import { education } from "./data/education.js";
 import { caseStudies } from "./data/caseStudies.js";
 import { serviceLeadership } from "./data/serviceLeadership.js";
+import { publications } from "./data/publications.js";
 
 const navItems = [
   ["Projects", "#projects"],
   ["Experience", "#experience"],
+  ["Publications", "#publications"],
   ["About", "#about"],
   ["Service", "#service-leadership"],
   ["Case Studies", "#case-studies"],
   ["Skills", "#skills"],
+  ["Interests", "#interests"],
   ["Contact", "#contact"],
 ];
 
@@ -29,14 +32,28 @@ function ExternalLink({ href, children }) {
 }
 
 function Header() {
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
+
   return (
     <header className="topbar">
-      <a className="brand" href="#home">
-        {profile.name}
-      </a>
-      <nav aria-label="Main navigation">
+      <div className="brand-row">
+        <a className="brand" href="#home" onClick={() => setIsNavOpen(false)}>
+          {profile.name}
+        </a>
+        <button
+          className="nav-toggle"
+          type="button"
+          aria-controls="main-navigation"
+          aria-expanded={isNavOpen}
+          aria-label={isNavOpen ? "Collapse navigation" : "Expand navigation"}
+          onClick={() => setIsNavOpen((open) => !open)}
+        >
+          <span aria-hidden="true" />
+        </button>
+      </div>
+      <nav id="main-navigation" className={isNavOpen ? "nav-open" : ""} aria-label="Main navigation">
         {navItems.map(([label, href]) => (
-          <a key={href} href={href}>
+          <a key={href} href={href} onClick={() => setIsNavOpen(false)}>
             {label}
           </a>
         ))}
@@ -182,6 +199,31 @@ function Experience() {
             </ul>
           </article>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function Publications() {
+  return (
+    <section id="publications" className="section publications-section">
+      <div className="publications-layout">
+        <div>
+          <p className="eyebrow">Publications & patent</p>
+          <h2>Applied machine-tool research and intellectual property</h2>
+          <p>
+            Published and patented work from industrial machine-tool software research, connecting CNC control, tool management, and intelligent value-added applications.
+          </p>
+        </div>
+        <div className="publication-list">
+          {publications.map((item) => (
+            <article className="publication-item" key={`${item.type}-${item.title}`}>
+              <span>{item.type}</span>
+              <h3>{item.title}</h3>
+              <p>{item.venue}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -363,6 +405,25 @@ function Skills() {
   );
 }
 
+function Interests() {
+  return (
+    <section id="interests" className="section interests-section">
+      <div>
+        <p className="eyebrow">Interests</p>
+        <h2>Outside the build</h2>
+      </div>
+      <div className="interest-list">
+        {profile.interests.map((interest) => (
+          <article className="interest-item" key={interest.name}>
+            <h3>{interest.name}</h3>
+            {interest.detail ? <p>{interest.detail}</p> : null}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section id="contact" className="section contact">
@@ -388,10 +449,12 @@ function App() {
         <Hero />
         <Projects />
         <Experience />
-        <About Me/>
+        <Publications />
+        <About />
         <ServiceLeadership />
         <CaseStudies />
         <Skills />
+        <Interests />
         <Contact />
       </main>
       <footer>
