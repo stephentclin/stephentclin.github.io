@@ -577,7 +577,20 @@ function Contact() {
   );
 }
 
-function BlogCard({ post }) {
+function buildTagFilters(items) {
+  const counts = items.reduce((accumulator, post) => {
+    post.tags.forEach((tag) => {
+      accumulator[tag] = (accumulator[tag] || 0) + 1;
+    });
+    return accumulator;
+  }, {});
+
+  return Object.entries(counts)
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => a.tag.localeCompare(b.tag));
+}
+
+function BlogCard({ post, onTagSelect }) {
   return (
     <article className="blog-card">
       <div>
@@ -586,9 +599,9 @@ function BlogCard({ post }) {
         <p>{post.excerpt}</p>
         <div className="tag-row">
           {post.tags.map((tag) => (
-            <span className="tag" key={tag}>
+            <button className="tag tag-button" type="button" key={tag} onClick={() => onTagSelect(tag)}>
               {tag}
-            </span>
+            </button>
           ))}
         </div>
       </div>
@@ -600,6 +613,13 @@ function BlogCard({ post }) {
 }
 
 function BlogIndex() {
+  const [selectedTag, setSelectedTag] = React.useState("All");
+  const tagFilters = React.useMemo(() => buildTagFilters(posts), []);
+  const filteredPosts = React.useMemo(
+    () => (selectedTag === "All" ? posts : posts.filter((post) => post.tags.includes(selectedTag))),
+    [selectedTag],
+  );
+
   return (
     <main className="page-shell">
       <section className="section blog-hero">
@@ -613,11 +633,46 @@ function BlogIndex() {
         </div>
       </section>
       <section className="section blog-section">
+        <div className="blog-filter-panel" aria-label="Filter blog posts by tag">
+          <div className="blog-filter-heading">
+            <div>
+              <p className="eyebrow">Tags</p>
+              <h2>Browse by topic</h2>
+            </div>
+            <span>
+              {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
+            </span>
+          </div>
+          <div className="tag-filter-list">
+            <button
+              className={selectedTag === "All" ? "tag-filter active" : "tag-filter"}
+              type="button"
+              aria-pressed={selectedTag === "All"}
+              onClick={() => setSelectedTag("All")}
+            >
+              All
+              <span>{posts.length}</span>
+            </button>
+            {tagFilters.map(({ tag, count }) => (
+              <button
+                className={selectedTag === tag ? "tag-filter active" : "tag-filter"}
+                type="button"
+                aria-pressed={selectedTag === tag}
+                key={tag}
+                onClick={() => setSelectedTag(tag)}
+              >
+                {tag}
+                <span>{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="blog-grid">
-          {posts.map((post) => (
-            <BlogCard post={post} key={post.slug} />
+          {filteredPosts.map((post) => (
+            <BlogCard post={post} key={post.slug} onTagSelect={setSelectedTag} />
           ))}
         </div>
+        {filteredPosts.length === 0 ? <p className="empty-state">No posts found for this tag yet.</p> : null}
       </section>
     </main>
   );

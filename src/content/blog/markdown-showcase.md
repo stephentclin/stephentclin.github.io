@@ -4,6 +4,7 @@ date: "2026-08-31"
 slug: "markdown-showcase"
 excerpt: "A quick demo of tables, images, task lists, blockquotes, links, and code blocks in this portfolio blog."
 tags: "Markdown, Blog, Portfolio"
+published: true
 ---
 
 # Markdown showcase: richer blog formatting

@@ -21,6 +21,9 @@ function parseFrontmatter(markdown, filePath) {
 
   const fallbackSlug = filePath.split("/").pop().replace(/\.md$/, "");
   const tags = meta.tags ? meta.tags.split(",").map((tag) => tag.trim()).filter(Boolean) : [];
+  const publishedValue = (meta.published || "").toLowerCase();
+  const draftValue = (meta.draft || "").toLowerCase();
+  const isPublished = publishedValue !== "false" && publishedValue !== "no" && draftValue !== "true" && draftValue !== "yes";
 
   return {
     title: meta.title || "Untitled post",
@@ -28,10 +31,13 @@ function parseFrontmatter(markdown, filePath) {
     slug: meta.slug || fallbackSlug,
     excerpt: meta.excerpt || content.split("\n").find((line) => line.trim()) || "",
     tags,
+    isPublished,
     content,
   };
 }
 
-export const posts = Object.entries(markdownPosts)
+export const allPosts = Object.entries(markdownPosts)
   .map(([filePath, markdown]) => parseFrontmatter(markdown, filePath))
   .sort((a, b) => b.date.localeCompare(a.date));
+
+export const posts = allPosts.filter((post) => post.isPublished);

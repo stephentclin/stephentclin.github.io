@@ -4,6 +4,7 @@ date: "2026-08-31"
 slug: "industrial-ai-portfolio"
 excerpt: "A short note on using portfolio projects to connect full-stack engineering, automation, and AI systems."
 tags: "Portfolio, Industrial AI, Full-stack"
+published: true
 ---
 
 # Why I am building an industrial AI portfolio

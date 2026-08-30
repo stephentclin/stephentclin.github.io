@@ -29,6 +29,7 @@ date: "2026-08-31"
 slug: "my-post-title"
 excerpt: "One short sentence that appears on the blog list."
 tags: "React, AI, Study"
+published: true
 ---
 
 # My post title
@@ -37,6 +38,19 @@ Write your post here with Markdown.
 ```
 
 The Blog page automatically lists every `.md` file in `src/content/blog`.
+It also creates the tag filter buttons from each post's `tags` field automatically.
+
+To hide a draft from the live Blog page, change the frontmatter to:
+
+```md
+published: false
+```
+
+You can also use this draft-style option:
+
+```md
+draft: true
+```
 
 Supported article formatting includes headings, links, images, tables, task lists, blockquotes, ordered and unordered lists, inline code, and fenced code blocks.
 

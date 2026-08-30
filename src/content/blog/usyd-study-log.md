@@ -4,6 +4,7 @@ date: "2026-08-30"
 slug: "usyd-study-log"
 excerpt: "How my current study focus in Data Science, AI, and Cybersecurity connects with previous engineering experience."
 tags: "Study, Data Science, Cybersecurity"
+published: true
 ---
 
 # Study log: connecting computer science with industrial systems
