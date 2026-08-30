@@ -8,12 +8,16 @@ import { education } from "./data/education.js";
 import { caseStudies } from "./data/caseStudies.js";
 import { serviceLeadership } from "./data/serviceLeadership.js";
 import { publications } from "./data/publications.js";
+import { Markdown } from "./blog/Markdown.jsx";
+import { posts } from "./blog/posts.js";
 
 const navItems = [
+  ["Home", "#home"],
   ["Projects", "#projects"],
   ["Experience", "#experience"],
   ["Publications", "#publications"],
   ["About", "#about"],
+  ["Blog", "#blog"],
   ["Service", "#service-leadership"],
   ["Case Studies", "#case-studies"],
   ["Skills", "#skills"],
@@ -125,6 +129,29 @@ function Header() {
       </nav>
     </header>
   );
+}
+
+function useHashRoute() {
+  const [hash, setHash] = React.useState(() => window.location.hash || "#home");
+
+  React.useEffect(() => {
+    const onHashChange = () => setHash(window.location.hash || "#home");
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  React.useEffect(() => {
+    if (hash.startsWith("#blog")) return;
+
+    window.requestAnimationFrame(() => {
+      const target = document.querySelector(hash);
+      if (target) target.scrollIntoView({ block: "start" });
+    });
+  }, [hash]);
+
+  if (hash === "#blog") return { page: "blog" };
+  if (hash.startsWith("#blog/")) return { page: "post", slug: hash.replace("#blog/", "") };
+  return { page: "home" };
 }
 
 function Hero() {
@@ -550,22 +577,118 @@ function Contact() {
   );
 }
 
+function BlogCard({ post }) {
+  return (
+    <article className="blog-card">
+      <div>
+        <p className="eyebrow">{post.date}</p>
+        <h3>{post.title}</h3>
+        <p>{post.excerpt}</p>
+        <div className="tag-row">
+          {post.tags.map((tag) => (
+            <span className="tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="card-links">
+        <ExternalLink href={`#blog/${post.slug}`}>Read post</ExternalLink>
+      </div>
+    </article>
+  );
+}
+
+function BlogIndex() {
+  return (
+    <main className="page-shell">
+      <section className="section blog-hero">
+        <div>
+          <p className="eyebrow">Blog</p>
+          <h1>Engineering notes, study logs, and project write-ups.</h1>
+          <p className="lead">
+            A Markdown-powered space for documenting what I am learning and building across full-stack systems, AI,
+            automation, and cybersecurity.
+          </p>
+        </div>
+      </section>
+      <section className="section blog-section">
+        <div className="blog-grid">
+          {posts.map((post) => (
+            <BlogCard post={post} key={post.slug} />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function BlogPost({ slug }) {
+  const post = posts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return (
+      <main className="page-shell">
+        <section className="section blog-hero">
+          <p className="eyebrow">Blog</p>
+          <h1>Post not found.</h1>
+          <div className="hero-actions">
+            <a className="button primary" href="#blog">
+              Back to blog
+            </a>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  return (
+    <main className="page-shell">
+      <article className="section article-page">
+        <a className="back-link" href="#blog">
+          Back to blog
+        </a>
+        <p className="eyebrow">{post.date}</p>
+        <h1>{post.title}</h1>
+        <div className="tag-row">
+          {post.tags.map((tag) => (
+            <span className="tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        <Markdown content={post.content} />
+      </article>
+    </main>
+  );
+}
+
+function HomePage() {
+  return (
+    <main id="home">
+      <Hero />
+      <Projects />
+      <Experience />
+      <Publications />
+      <About />
+      <ServiceLeadership />
+      <CaseStudies />
+      <Skills />
+      <Interests />
+      <Contact />
+    </main>
+  );
+}
+
 function App() {
+  const route = useHashRoute();
+
   return (
     <>
       <Header />
-      <main id="home">
-        <Hero />
-        <Projects />
-        <Experience />
-        <Publications />
-        <About />
-        <ServiceLeadership />
-        <CaseStudies />
-        <Skills />
-        <Interests />
-        <Contact />
-      </main>
+      {route.page === "blog" && <BlogIndex />}
+      {route.page === "post" && <BlogPost slug={route.slug} />}
+      {route.page === "home" && <HomePage />}
       <footer>
         <span>{profile.name}</span>
         <span>Built with React and GitHub Pages.</span>

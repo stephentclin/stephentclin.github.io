@@ -12,6 +12,40 @@ A React + Vite portfolio for GitHub Pages. It showcases full-stack engineering, 
 
 Replace placeholder GitHub and email links before publishing.
 
+## Add blog posts with Markdown
+
+Create a new Markdown file under:
+
+```text
+src/content/blog/
+```
+
+Use this format:
+
+```md
+---
+title: "My post title"
+date: "2026-08-31"
+slug: "my-post-title"
+excerpt: "One short sentence that appears on the blog list."
+tags: "React, AI, Study"
+---
+
+# My post title
+
+Write your post here with Markdown.
+```
+
+The Blog page automatically lists every `.md` file in `src/content/blog`.
+
+Supported article formatting includes headings, links, images, tables, task lists, blockquotes, ordered and unordered lists, inline code, and fenced code blocks.
+
+Images can use files from `public/images`:
+
+```md
+![Alt text](/images/my-image.png)
+```
+
 ## Run locally
 
 ```bash
