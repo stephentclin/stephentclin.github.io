@@ -102,35 +102,23 @@ function ExternalLink({ href, children }) {
 
 function Header({ currentHash }) {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
-  const moreRef = React.useRef(null);
   const toggleRef = React.useRef(null);
-  const primaryItems = navItems.filter(([label]) => ["Home", "Projects", "Experience", "About", "Blog", "Contact"].includes(label));
-  const secondaryItems = navItems.filter((item) => !primaryItems.includes(item));
   const activeHref = currentHash.startsWith("#blog") ? "#blog" : currentHash;
 
   const closeNavigation = () => {
     setIsNavOpen(false);
-    if (moreRef.current) moreRef.current.open = false;
   };
 
   React.useEffect(() => {
-    const onPointerDown = (event) => {
-      if (moreRef.current && !moreRef.current.contains(event.target)) moreRef.current.open = false;
-    };
     const onKeyDown = (event) => {
       if (event.key !== "Escape") return;
-      if (moreRef.current?.open) {
-        moreRef.current.open = false;
-        moreRef.current.querySelector("summary").focus();
-      } else if (isNavOpen) {
+      if (isNavOpen) {
         setIsNavOpen(false);
         toggleRef.current?.focus();
       }
     };
-    document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [isNavOpen]);
@@ -160,11 +148,7 @@ function Header({ currentHash }) {
         </button>
       </div>
       <nav id="main-navigation" className={isNavOpen ? "nav-open" : ""} aria-label="Main navigation">
-        {primaryItems.map(renderLink)}
-        <details className="nav-more" ref={moreRef}>
-          <summary className={secondaryItems.some(([, href]) => href === activeHref) ? "active" : ""}>More</summary>
-          <div className="nav-more-links">{secondaryItems.map(renderLink)}</div>
-        </details>
+        {navItems.map(renderLink)}
       </nav>
     </header>
   );
