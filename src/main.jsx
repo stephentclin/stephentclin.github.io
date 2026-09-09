@@ -100,16 +100,55 @@ function ExternalLink({ href, children }) {
   );
 }
 
-function Header() {
+function Header({ currentHash }) {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const moreRef = React.useRef(null);
+  const toggleRef = React.useRef(null);
+  const primaryItems = navItems.filter(([label]) => ["Home", "Projects", "Experience", "About", "Blog", "Contact"].includes(label));
+  const secondaryItems = navItems.filter((item) => !primaryItems.includes(item));
+  const activeHref = currentHash.startsWith("#blog") ? "#blog" : currentHash;
+
+  const closeNavigation = () => {
+    setIsNavOpen(false);
+    if (moreRef.current) moreRef.current.open = false;
+  };
+
+  React.useEffect(() => {
+    const onPointerDown = (event) => {
+      if (moreRef.current && !moreRef.current.contains(event.target)) moreRef.current.open = false;
+    };
+    const onKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      if (moreRef.current?.open) {
+        moreRef.current.open = false;
+        moreRef.current.querySelector("summary").focus();
+      } else if (isNavOpen) {
+        setIsNavOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isNavOpen]);
+
+  const renderLink = ([label, href]) => (
+    <a key={href} href={href} aria-current={activeHref === href ? "page" : undefined} onClick={closeNavigation}>
+      {label}
+    </a>
+  );
 
   return (
     <header className="topbar">
       <div className="brand-row">
-        <a className="brand" href="#home" onClick={() => setIsNavOpen(false)}>
+        <a className="brand" href="#home" onClick={closeNavigation}>
           {profile.name}
         </a>
         <button
+          ref={toggleRef}
           className="nav-toggle"
           type="button"
           aria-controls="main-navigation"
@@ -121,11 +160,11 @@ function Header() {
         </button>
       </div>
       <nav id="main-navigation" className={isNavOpen ? "nav-open" : ""} aria-label="Main navigation">
-        {navItems.map(([label, href]) => (
-          <a key={href} href={href} onClick={() => setIsNavOpen(false)}>
-            {label}
-          </a>
-        ))}
+        {primaryItems.map(renderLink)}
+        <details className="nav-more" ref={moreRef}>
+          <summary className={secondaryItems.some(([, href]) => href === activeHref) ? "active" : ""}>More</summary>
+          <div className="nav-more-links">{secondaryItems.map(renderLink)}</div>
+        </details>
       </nav>
     </header>
   );
@@ -141,17 +180,20 @@ function useHashRoute() {
   }, []);
 
   React.useEffect(() => {
-    if (hash.startsWith("#blog")) return;
-
-    window.requestAnimationFrame(() => {
-      const target = document.querySelector(hash);
+    const frame = window.requestAnimationFrame(() => {
+      if (hash.startsWith("#blog")) {
+        window.scrollTo({ top: 0, behavior: "instant" });
+        return;
+      }
+      const target = document.getElementById(hash.slice(1));
       if (target) target.scrollIntoView({ block: "start" });
     });
+    return () => window.cancelAnimationFrame(frame);
   }, [hash]);
 
-  if (hash === "#blog") return { page: "blog" };
-  if (hash.startsWith("#blog/")) return { page: "post", slug: hash.replace("#blog/", "") };
-  return { page: "home" };
+  if (hash === "#blog") return { page: "blog", hash };
+  if (hash.startsWith("#blog/")) return { page: "post", slug: hash.replace("#blog/", ""), hash };
+  return { page: "home", hash };
 }
 
 function Hero() {
@@ -595,7 +637,7 @@ function BlogCard({ post, onTagSelect }) {
     <article className="blog-card">
       <div>
         <p className="eyebrow">{post.date}</p>
-        <h3>{post.title}</h3>
+        <h3><a href={`#blog/${post.slug}`}>{post.title}</a></h3>
         <p>{post.excerpt}</p>
         <div className="tag-row">
           {post.tags.map((tag) => (
@@ -606,14 +648,13 @@ function BlogCard({ post, onTagSelect }) {
         </div>
       </div>
       <div className="card-links">
-        <ExternalLink href={`#blog/${post.slug}`}>Read post</ExternalLink>
+        <a href={`#blog/${post.slug}`} aria-label={`Read ${post.title}`}>Read article</a>
       </div>
     </article>
   );
 }
 
-function BlogIndex() {
-  const [selectedTag, setSelectedTag] = React.useState("All");
+function BlogIndex({ selectedTag, setSelectedTag }) {
   const tagFilters = React.useMemo(() => buildTagFilters(posts), []);
   const filteredPosts = React.useMemo(
     () => (selectedTag === "All" ? posts : posts.filter((post) => post.tags.includes(selectedTag))),
@@ -621,14 +662,13 @@ function BlogIndex() {
   );
 
   return (
-    <main className="page-shell">
+    <main id="main-content" className="page-shell blog-index" tabIndex={-1}>
       <section className="section blog-hero">
         <div>
           <p className="eyebrow">Blog</p>
-          <h1>Engineering notes, study logs, and project write-ups.</h1>
+          <h1>Notes & writing</h1>
           <p className="lead">
-            A Markdown-powered space for documenting what I am learning and building across full-stack systems, AI,
-            automation, and cybersecurity.
+            Lessons from building software, studying AI, and working with industrial systems.
           </p>
         </div>
       </section>
@@ -636,13 +676,16 @@ function BlogIndex() {
         <div className="blog-filter-panel" aria-label="Filter blog posts by tag">
           <div className="blog-filter-heading">
             <div>
-              <p className="eyebrow">Tags</p>
-              <h2>Browse by topic</h2>
+              <h2>Topics</h2>
             </div>
-            <span>
+            <span role="status" aria-live="polite">
               {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
             </span>
           </div>
+          <select className="mobile-topic-select" aria-label="Filter articles by topic" value={selectedTag} onChange={(event) => setSelectedTag(event.target.value)}>
+            <option value="All">All topics ({posts.length})</option>
+            {tagFilters.map(({ tag, count }) => <option value={tag} key={tag}>{tag} ({count})</option>)}
+          </select>
           <div className="tag-filter-list">
             <button
               className={selectedTag === "All" ? "tag-filter active" : "tag-filter"}
@@ -683,7 +726,7 @@ function BlogPost({ slug }) {
 
   if (!post) {
     return (
-      <main className="page-shell">
+      <main id="main-content" className="page-shell" tabIndex={-1}>
         <section className="section blog-hero">
           <p className="eyebrow">Blog</p>
           <h1>Post not found.</h1>
@@ -698,12 +741,12 @@ function BlogPost({ slug }) {
   }
 
   return (
-    <main className="page-shell">
+    <main id="main-content" className="page-shell" tabIndex={-1}>
       <article className="section article-page">
         <a className="back-link" href="#blog">
           Back to blog
         </a>
-        <p className="eyebrow">{post.date}</p>
+        <p className="eyebrow"><time dateTime={post.date}>{post.date}</time></p>
         <h1>{post.title}</h1>
         <div className="tag-row">
           {post.tags.map((tag) => (
@@ -720,7 +763,8 @@ function BlogPost({ slug }) {
 
 function HomePage() {
   return (
-    <main id="home">
+    <main id="main-content" tabIndex={-1}>
+      <div id="home" />
       <Hero />
       <Projects />
       <Experience />
@@ -737,11 +781,18 @@ function HomePage() {
 
 function App() {
   const route = useHashRoute();
+  const [selectedTag, setSelectedTag] = React.useState("All");
 
   return (
     <>
-      <Header />
-      {route.page === "blog" && <BlogIndex />}
+      <a className="skip-link" href="#main-content" onClick={(event) => {
+        event.preventDefault();
+        const main = document.getElementById("main-content");
+        main?.focus({ preventScroll: true });
+        main?.scrollIntoView({ block: "start" });
+      }}>Skip to content</a>
+      <Header currentHash={route.hash} />
+      {route.page === "blog" && <BlogIndex selectedTag={selectedTag} setSelectedTag={setSelectedTag} />}
       {route.page === "post" && <BlogPost slug={route.slug} />}
       {route.page === "home" && <HomePage />}
       <footer>

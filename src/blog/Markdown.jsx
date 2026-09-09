@@ -22,14 +22,30 @@ function MarkdownImage({ src = "", alt = "" }) {
   );
 }
 
+function remarkArticleTitle() {
+  return (tree) => {
+    // The article header already displays the title from frontmatter.
+    if (tree.children[0]?.type === "heading" && tree.children[0].depth === 1) tree.children.shift();
+  };
+}
+
 export function Markdown({ content }) {
   return (
     <div className="article-body">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkBreaks]}
+        remarkPlugins={[remarkGfm, remarkBreaks, remarkArticleTitle]}
         components={{
           a: MarkdownLink,
           img: MarkdownImage,
+          p: ({ node, children }) => node.children.some((child) => child.tagName === "img")
+            ? <div className="markdown-paragraph">{children}</div>
+            : <p>{children}</p>,
+          h1: ({ children }) => <h2>{children}</h2>,
+          table: ({ children }) => (
+            <div className="table-scroll" role="region" aria-label="Article table" tabIndex={0}>
+              <table>{children}</table>
+            </div>
+          ),
         }}
       >
         {content}
