@@ -33,6 +33,12 @@ The koala companion gives that interaction a recognizable face. Behind it, the p
 
 The home screen captures the direction I wanted: a clear starting action, a visible draft, and confirmation before saving. Getting the rest of the system to support that simple interaction became the real work.
 
+### Getting acquainted before making a plan
+
+The preference interview gives Koko a conversational way to ask about a traveler's usual rhythm. In this example, the first question is about departure time, with suggested answers and a free-text alternative. These are preference inputs; remembering them across trips still requires the traveler's consent.
+
+![The English preference interview, provided from the current app: Koko asks about the traveler's usual departure time, with suggested answers and a Finish for now option.](/images/koko/app-preference-interview.png)
+
 ## From a map of places to a usable travel-data layer
 
 One of the first lessons was that a place visible on an Apple Maps basemap is not automatically a record in our own searchable catalog. The map and the application’s dataset have different sources and coverage. Without making that distinction, a missing marker looks like a broken category filter.
@@ -89,6 +95,16 @@ The boundary I kept returning to was simple: **the model can suggest; the applic
 
 Being precise about those boundaries helped me explain the system without overstating what any individual tool was doing.
 
+### Turning an idea into trip-specific inputs
+
+The current trip setup gathers companions, activity budget, dates, and destination in one place. This screen is separate from longer-term preferences: a choice for one holiday should not automatically become a permanent profile setting.
+
+![The English trip setup screen, captured from the running iOS Simulator: companions, activity budget, dates, and destination are grouped around Koko.](/images/koko/app-trip-setup.png)
+
+Budget scope deserves its own explanation. The current input is an **activity budget**, with a choice of per-person or group scope and daily or whole-trip scope. The interface explicitly excludes accommodation, transport, and meals. Those costs must be accounted for separately before describing a complete trip budget.
+
+![The English activity-budget sheet makes its scope explicit: AUD, per-person or group allocation, and daily or whole-trip budgeting. No amount was entered or saved for this capture.](/images/koko/app-activity-budget.png)
+
 ## Planning a day that someone can actually follow
 
 The planning Skill grew as real questions appeared. Must-visit places, non-repetition, opening hours, meal times, weather, transport, and hotel locations all interact. A rule that improves one part of the day can make another part worse.
@@ -119,6 +135,12 @@ I also added a goal of returning to the hotel around **20:00** where feasible, w
 ![The existing draft review screen, captured from the iOS Simulator. Prices and opening hours are still unconfirmed, and the displayed return time falls short of the 20:00 target—visible gaps rather than hidden successes.](/images/koko/app-review.png)
 
 This screen is especially important to the story. It shows that the application can expose incomplete work, but it also shows the remaining gap between planning intentions and the actual itinerary. The independent review API exists; integrating its approval requirements consistently across all older save flows is still work in progress.
+
+### Moving between the map and the day's plan
+
+The map and itinerary drawer offer two views of the same day. The following sample shows a return day, with date tabs, numbered locations, a start marker, and a hotel check-out and luggage-hold stop. It illustrates the interface and sample itinerary, rather than proving that every transport leg or luggage service is available.
+
+![The English map view of an existing three-day sample itinerary: day switching, numbered places, and a hotel luggage-hold stop. The displayed A$0 summary is not a verified total trip cost; the stop price remains unverified.](/images/koko/app-day-map.png)
 
 ## The infrastructure detour: Oracle to AWS
 
@@ -210,6 +232,6 @@ Koko started as a travel-planning idea. Building it became a practical lesson in
 - [Project repository: f1sh11/hackathon](https://github.com/f1sh11/hackathon)
 - [Open Agent Hackathon 2026: official event and FAQ](https://hackathon.genai.works/event/open-agent-hackathon-2026)
 - Product overview and agent architecture: our **Koko Travel Twin – Current App** deck, team Jackpot.
-- Home, Explore, and draft-review images: captured from the running iOS Simulator for this article. The architecture image is reproduced from the product deck; the cloud deployment diagram was prepared for this post.
+- Home, Explore, draft review, trip setup, activity budget, and day-map images: captured from the running iOS Simulator for this article. The English preference-interview screenshot was supplied from the current app. The architecture image is reproduced from the product deck; the cloud deployment diagram was prepared for this post.
 
 The app screenshots retain the displayed map/data credits. Features, data coverage, and deployment choices described here belong to this development checkpoint and may change as the project evolves.
