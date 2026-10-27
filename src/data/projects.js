@@ -1,5 +1,18 @@
 export const projects = [
   {
+    name: "Koko, Your Travel Twin",
+    summary:
+      "An AI travel companion that turns personal preferences and travel data into editable itineraries with feasibility checks.",
+    stack: ["SwiftUI", "ASP.NET Core", "Zetaris", "Meterless", "NVIDIA"],
+    screenshots: [
+      { src: "/images/koko/app-trip-setup.png", alt: "Koko's English trip setup on iOS" },
+      { src: "/images/koko/app-explore.png", alt: "Koko's English place exploration map on iOS" },
+    ],
+    repo: "https://github.com/f1sh11/hackathon",
+    showRepo: true,
+    caseStudy: "#case-study-koko-travel-twin",
+  },
+  {
     name: "Global Manufacturing Automation Platform",
     summary:
       "Refactored legacy factory tools into an integrated system for production order automation across 18 global manufacturing sites.",

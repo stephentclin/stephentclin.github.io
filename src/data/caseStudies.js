@@ -1,5 +1,25 @@
 export const caseStudies = [
   {
+    id: "case-study-koko-travel-twin",
+    type: "AI travel agents · Open Agent Hackathon 2026 · Team Jackpot",
+    title: "Building Koko, a travel companion grounded in real constraints",
+    problem:
+      "Travel information is fragmented across place catalogs, weather, transport, and accommodation sources. A convincing itinerary can still repeat destinations, overlook opening hours, or exceed a traveler's energy and budget.",
+    decision:
+      "I connected native mobile clients to an ASP.NET Core backend, using Zetaris for integrated travel-data queries, Meterless H-MEM for consented preference memory, and NVIDIA for model inference. Planning and independent review agents are supported by C# scheduling and validation for route timing, walking estimates, required visits, and unresolved costs. PostgreSQL stores trips and application state; provider credentials stay on the server in the AWS deployment.",
+    result:
+      "The hackathon prototype brings together place exploration, editable itinerary drafts, and visible checks for unconfirmed prices and hours. JSON planning tests and versioned Skill-management APIs make behavior easier to inspect through Postman. Work remains on place deduplication, consistent review enforcement across save flows, and realistic load testing.",
+    links: [
+      { label: "Development story & screenshots", href: "#blog/koko-travel-twin" },
+      { label: "Source code", href: "https://github.com/f1sh11/hackathon" },
+    ],
+    image: {
+      src: "/images/koko/cloud-architecture.svg",
+      alt: "Koko cloud architecture: mobile clients, ASP.NET Core, PostgreSQL, Meterless H-MEM, Zetaris, and NVIDIA",
+      caption: "Development deployment in Sydney: the app connects to one backend, with separate application and Zetaris workloads sharing an existing AWS EKS node. Memory uses H-MEM; model inference calls NVIDIA directly.",
+    },
+  },
+  {
     id: "case-study-manufacturing-automation",
     type: "Manufacturing automation",
     title: "Modernizing legacy systems for global factory adoption",

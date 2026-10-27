@@ -1906,3 +1906,23 @@ footer {
   height: auto;
   max-height: none;
 }
+
+
+/* Product screenshots use the same compact preview area as other project cards. */
+.project-card .project-visual--screenshots {
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  height: 150px;
+  overflow: hidden;
+  padding: 14px;
+  background: linear-gradient(135deg, #eef1ff, #e7f4ef);
+}
+
+.project-visual--screenshots img {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: calc(50% - 8px);
+  object-fit: contain;
+}

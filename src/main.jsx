@@ -249,9 +249,17 @@ function SectionHeading({ eyebrow, title }) {
 function ProjectCard({ project }) {
   return (
     <article className="project-card">
-      <div className="project-visual" role="img" aria-label={`${project.name} preview`}>
-        <span>{project.stack[0]}</span>
-      </div>
+      {project.screenshots ? (
+        <div className="project-visual project-visual--screenshots">
+          {project.screenshots.map((screenshot) => (
+            <img key={screenshot.src} src={screenshot.src} alt={screenshot.alt} loading="lazy" />
+          ))}
+        </div>
+      ) : (
+        <div className="project-visual" role="img" aria-label={`${project.name} preview`}>
+          <span>{project.stack[0]}</span>
+        </div>
+      )}
       <div>
         <h3>{project.name}</h3>
         <p>
@@ -268,6 +276,7 @@ function ProjectCard({ project }) {
       <div className="card-links">
         <ExternalLink href={project.demo}>Demo</ExternalLink>
         <ExternalLink href={project.caseStudy}>Case study</ExternalLink>
+        {project.showRepo && <ExternalLink href={project.repo}>Source code</ExternalLink>}
       </div>
     </article>
   );
