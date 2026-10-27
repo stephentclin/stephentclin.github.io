@@ -1895,3 +1895,14 @@ footer {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Keep Koko's full Simulator captures readable without stretching the device frame. */
+.article-body .markdown-image:has(img[src^="/images/koko/app-"]) {
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+.article-body .markdown-image img[src^="/images/koko/app-"] {
+  height: auto;
+  max-height: none;
+}

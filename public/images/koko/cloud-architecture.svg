@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+<title id="title">Koko: mobile clients, shared AWS deployment, and cloud model</title>
+<desc id="desc">iOS and Android connect over HTTPS to the ASP.NET Core backend on an existing AWS EKS node. The backend uses separate PostgreSQL and Zetaris services, a Meterless H-MEM bridge, and the external NVIDIA cloud model. Provider credentials stay on the server.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#48756c" stroke-width="2"/></marker></defs>
+<rect width="1200" height="900" rx="24" fill="#f5f8f6"/>
+<g font-family="system-ui, sans-serif" fill="#173e38">
+<text x="50" y="57" font-size="29" font-weight="700">Koko · cloud deployment</text>
+<text x="50" y="89" font-size="17" fill="#506963">Development snapshot · 27 October 2026 · simplified logical view</text>
+<rect x="50" y="125" width="320" height="100" rx="16" fill="white" stroke="#95b7aa"/>
+<text x="210" y="166" text-anchor="middle" font-size="23" font-weight="650">iOS / Android app</text>
+<text x="210" y="196" text-anchor="middle" font-size="17">Backend URL + App access code</text>
+<rect x="50" y="285" width="1100" height="440" rx="20" fill="#e5eee9" stroke="#7aa390" stroke-width="2"/>
+<text x="77" y="321" font-size="20" font-weight="650">Existing AWS EKS node · Sydney</text>
+<text x="77" y="349" font-size="16">Shared host, separate workloads · no additional compute host in this trial</text>
+<rect x="78" y="380" width="620" height="110" rx="15" fill="#fff" stroke="#8ba99c"/>
+<text x="388" y="417" text-anchor="middle" font-size="24" font-weight="650">ASP.NET Core API</text>
+<text x="388" y="446" text-anchor="middle" font-size="17">Planning / review · validation · application state</text>
+<text x="388" y="472" text-anchor="middle" font-size="16">HTTPS entry → access check → backend</text>
+<rect x="78" y="565" width="285" height="112" rx="15" fill="#fff" stroke="#8ba99c"/>
+<text x="220" y="603" text-anchor="middle" font-size="22" font-weight="650">PostgreSQL</text>
+<text x="220" y="633" text-anchor="middle" font-size="17">Trips · evidence · World Model</text>
+<text x="220" y="657" text-anchor="middle" font-size="15">Application implementation</text>
+<rect x="414" y="565" width="284" height="112" rx="15" fill="#fff" stroke="#8ba99c"/>
+<text x="556" y="603" text-anchor="middle" font-size="22" font-weight="650">Meterless H-MEM</text>
+<text x="556" y="633" text-anchor="middle" font-size="17">Node.js bridge</text>
+<text x="556" y="657" text-anchor="middle" font-size="15">Consented preference memory</text>
+<rect x="770" y="380" width="350" height="110" rx="15" fill="#fff" stroke="#8ba99c"/>
+<text x="945" y="420" text-anchor="middle" font-size="24" font-weight="650">Zetaris</text>
+<text x="945" y="451" text-anchor="middle" font-size="17">Integrated travel-data queries</text>
+<text x="945" y="476" text-anchor="middle" font-size="15">Separate from the App process</text>
+<rect x="770" y="565" width="350" height="112" rx="15" fill="#f5f8f6" stroke="#8ba99c" stroke-dasharray="5 5"/>
+<text x="945" y="605" text-anchor="middle" font-size="20" font-weight="650">Private server configuration</text>
+<text x="945" y="634" text-anchor="middle" font-size="16">Model / transit / Zetaris credentials</text>
+<text x="945" y="658" text-anchor="middle" font-size="15">Never included in the mobile app</text>
+<rect x="605" y="125" width="515" height="100" rx="16" fill="#e7edf9" stroke="#90a4d0"/>
+<text x="862" y="166" text-anchor="middle" font-size="23" font-weight="650">NVIDIA cloud model API</text>
+<text x="862" y="196" text-anchor="middle" font-size="17">Nemotron inference · external service</text>
+<g fill="none" stroke="#48756c" stroke-width="2" marker-end="url(#arrow)">
+<path d="M210 225V380"/><path d="M605 380V252H862V225"/>
+<path d="M698 435H770"/><path d="M220 490V565"/><path d="M556 490V565"/>
+</g>
+<text x="228" y="263" font-size="16">HTTPS</text>
+<text x="50" y="780" font-size="20" font-weight="650">The phone connects to one backend.</text>
+<text x="50" y="814" font-size="18">The API owns provider connections, data access, scheduling, and verification.</text>
+<text x="50" y="850" font-size="16" fill="#506963">Meterless H-MEM provides memory; model inference uses NVIDIA directly in this configuration.</text>
+</g></svg>
